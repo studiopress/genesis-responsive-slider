@@ -1,0 +1,306 @@
+# Copyright (C) 2015 StudioPress
+# This file is distributed under the GNU General Public License v2.0 (or later).
+msgid ""
+msgstr ""
+"Project-Id-Version: Genesis Responsive Slider 0.9.3\n"
+"Report-Msgid-Bugs-To: StudioPress <translations@studiopress.com>\n"
+"POT-Creation-Date: 2015-09-28 21:46:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: StudioPress <translations@studiopress.com>\n"
+"Language-Team: English <translations@studiopress.com>\n"
+"X-Generator: grunt-wp-i18n 0.4.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+#: admin.php:33
+msgid "[Continue Reading]"
+msgstr ""
+
+#: admin.php:77
+msgid "Settings reset."
+msgstr ""
+
+#: admin.php:79
+msgid "Settings saved."
+msgstr ""
+
+#: admin.php:92
+msgid "Slider Settings"
+msgstr ""
+
+#: admin.php:114
+msgid "Genesis Responsive Slider Settings"
+msgstr ""
+
+#: admin.php:152 genesis-responsive-slider.php:210
+msgid "Genesis - Responsive Slider"
+msgstr ""
+
+#: admin.php:153 admin.php:164
+msgid "Save Settings"
+msgstr ""
+
+#: admin.php:154 admin.php:165
+msgid "Reset Settings"
+msgstr ""
+
+#: admin.php:154
+msgid "Are you sure you want to reset?"
+msgstr ""
+
+#: admin.php:194
+msgid "Type of Content"
+msgstr ""
+
+#: admin.php:196
+msgid "Would you like to use posts or pages"
+msgstr ""
+
+#: admin.php:215
+msgid "By Taxonomy and Terms"
+msgstr ""
+
+#: admin.php:215
+msgid "Choose a term to determine what slides to include"
+msgstr ""
+
+#: admin.php:219
+msgid "All Taxonomies and Terms"
+msgstr ""
+
+#: admin.php:246
+msgid "Include or Exclude by Taxonomy ID"
+msgstr ""
+
+#: admin.php:249
+msgid ""
+"List which category, tag or other taxonomy IDs to exclude. (1,2,3,4 for "
+"example)"
+msgstr ""
+
+#: admin.php:259
+msgid "Include or Exclude by %s ID"
+msgstr ""
+
+#: admin.php:262
+msgid ""
+"Choose the include / exclude slides using their post / page ID in a "
+"comma-separated list. (1,2,3,4 for example)"
+msgstr ""
+
+#: admin.php:266
+msgid "Select"
+msgstr ""
+
+#: admin.php:267
+msgid "Include"
+msgstr ""
+
+#: admin.php:268
+msgid "Exclude"
+msgstr ""
+
+#: admin.php:273
+msgid "List which"
+msgstr ""
+
+#: admin.php:273 admin.php:293
+msgid "ID"
+msgstr ""
+
+#: admin.php:273
+msgid "to include / exclude. (1,2,3,4 for example)"
+msgstr ""
+
+#: admin.php:279
+msgid "Number of Slides to Show"
+msgstr ""
+
+#: admin.php:284
+msgid "Number of Posts to Offset"
+msgstr ""
+
+#: admin.php:289
+msgid "Order By"
+msgstr ""
+
+#: admin.php:291
+msgid "Date"
+msgstr ""
+
+#: admin.php:292
+msgid "Title"
+msgstr ""
+
+#: admin.php:294
+msgid "Random"
+msgstr ""
+
+#: admin.php:302
+msgid "Transition Settings"
+msgstr ""
+
+#: admin.php:305
+msgid "Time Between Slides (in milliseconds)"
+msgstr ""
+
+#: admin.php:310
+msgid "Slide Transition Speed (in milliseconds)"
+msgstr ""
+
+#: admin.php:315
+msgid "Slider Effect"
+msgstr ""
+
+#: admin.php:316 admin.php:365
+msgid "Select one of the following:"
+msgstr ""
+
+#: admin.php:318
+msgid "Slide"
+msgstr ""
+
+#: admin.php:319
+msgid "Fade"
+msgstr ""
+
+#: admin.php:325
+msgid "Display Settings"
+msgstr ""
+
+#: admin.php:328
+msgid "Maximum Slider Width (in pixels)"
+msgstr ""
+
+#: admin.php:333
+msgid "Maximum Slider Height (in pixels)"
+msgstr ""
+
+#: admin.php:338
+msgid "Display Next / Previous Arrows in Slider?"
+msgstr ""
+
+#: admin.php:342
+msgid "Display Pagination in Slider?"
+msgstr ""
+
+#: admin.php:347
+msgid "Content Settings"
+msgstr ""
+
+#: admin.php:350
+msgid "Do not link Slider image to Post/Page."
+msgstr ""
+
+#: admin.php:354
+msgid "Display Post/Page Title in Slider?"
+msgstr ""
+
+#: admin.php:357
+msgid "Display Content in Slider?"
+msgstr ""
+
+#: admin.php:361
+msgid "Hide Title & Content on Mobile Devices"
+msgstr ""
+
+#: admin.php:367
+msgid "Display post content"
+msgstr ""
+
+#: admin.php:368
+msgid "Display post excerpts"
+msgstr ""
+
+#: admin.php:373
+msgid "More Text (if applicable)"
+msgstr ""
+
+#: admin.php:378
+msgid "Limit content to"
+msgstr ""
+
+#: admin.php:380
+msgid "characters"
+msgstr ""
+
+#: admin.php:383
+msgid ""
+"Using this option will limit the text and strip all formatting from the "
+"text displayed. To use this option, choose \"Display post content\" in the "
+"select box above."
+msgstr ""
+
+#: admin.php:386
+msgid "Slider Excerpt Width (in percentage)"
+msgstr ""
+
+#: admin.php:391
+msgid "Excerpt Location (vertical)"
+msgstr ""
+
+#: admin.php:393
+msgid "Top"
+msgstr ""
+
+#: admin.php:394
+msgid "Bottom"
+msgstr ""
+
+#: admin.php:399
+msgid "Excerpt Location (horizontal)"
+msgstr ""
+
+#: admin.php:401
+msgid "Left"
+msgstr ""
+
+#: admin.php:402
+msgid "Right"
+msgstr ""
+
+#: admin.php:412
+msgid "Save Changes"
+msgstr ""
+
+#: genesis-responsive-slider.php:208
+msgid "Displays a slideshow inside a widget area"
+msgstr ""
+
+#: genesis-responsive-slider.php:371
+msgid "Title:"
+msgstr ""
+
+#: genesis-responsive-slider.php:374
+msgid ""
+"To configure slider options, please go to the <a href=\"%s\">Slider "
+"Settings</a> page."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Genesis Responsive Slider"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.studiopress.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A responsive featured slider for the Genesis Framework."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "StudioPress"
+msgstr ""
