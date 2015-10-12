@@ -6,7 +6,10 @@
 	Author: StudioPress
 	Author URI: http://www.studiopress.com
 
-	Version: 0.9.4
+	Version: 0.9.5
+
+	Text Domain: genesis-responsive-slider
+	Domain Path: /languages
 
 	License: GNU General Public License v2.0 (or later)
 	License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -15,13 +18,13 @@
 /**
  * Props to Rafal Tomal, Nick Croft, Nathan Rice, Ron Rennick, Josh Byers and Brian Gardner for collaboratively writing this plugin.
  */
- 
+
  /**
  * Thanks to Tyler Smith for creating the awesome jquery FlexSlider plugin - http://flex.madebymufffin.com/.
  */
 
 define( 'GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD', 'genesis_responsive_slider_settings' );
-define( 'GENESIS_RESPONSIVE_SLIDER_VERSION', '0.9.2' );
+define( 'GENESIS_RESPONSIVE_SLIDER_VERSION', '0.9.5' );
 
 add_action( 'after_setup_theme', 'GenesisResponsiveSliderInit', 15 );
 /**
@@ -34,15 +37,15 @@ function GenesisResponsiveSliderInit() {
 		return;
 
 	// translation support
-	load_plugin_textdomain( 'genesis-responsive-slider', false, '/genesis-responsive-slider/languages/' );
-	
+	load_plugin_textdomain( 'genesis-responsive-slider', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+
 	/** hook all frontend slider functions here to ensure Genesis is active **/
 	add_action( 'wp_enqueue_scripts', 'genesis_responsive_slider_scripts' );
 	add_action( 'wp_print_styles', 'genesis_responsive_slider_styles' );
 	add_action( 'wp_head', 'genesis_responsive_slider_head', 1 );
 	add_action( 'wp_footer', 'genesis_responsive_slider_flexslider_params' );
 	add_action( 'widgets_init', 'genesis_responsive_sliderRegister' );
-	
+
 	/** Include Admin file */
 	if ( is_admin() ) require_once( dirname( __FILE__ ) . '/admin.php' );
 
@@ -126,7 +129,7 @@ function genesis_responsive_slider_head() {
 		$vertical = genesis_get_responsive_slider_option( 'location_vertical' );
 		$horizontal = genesis_get_responsive_slider_option( 'location_horizontal' );
 		$display = ( genesis_get_responsive_slider_option( 'posts_num' ) >= 2 && genesis_get_responsive_slider_option( 'slideshow_arrows' ) ) ? 'top: ' . $slideNavTop . 'px' : 'display: none';
-		
+
 		$hide_mobile = genesis_get_responsive_slider_option( 'slideshow_hide_mobile' );
 		$slideshow_pager = genesis_get_responsive_slider_option( 'slideshow_pager' );
 
@@ -136,17 +139,17 @@ function genesis_responsive_slider_head() {
 			.slide-excerpt { ' . $vertical . ': 0; }
 			.slide-excerpt { '. $horizontal . ': 0; }
 			.flexslider { max-width: ' . $width . 'px; max-height: ' . $height . 'px; }
-			.slide-image { max-height: ' . $height . 'px; } 
+			.slide-image { max-height: ' . $height . 'px; }
 		</style>';
-		
+
 		if ( $hide_mobile == 1 ) {
 		echo '
-		<style type="text/css"> 
-			@media only screen 
-			and (min-device-width : 320px) 
+		<style type="text/css">
+			@media only screen
+			and (min-device-width : 320px)
 			and (max-device-width : 480px) {
 				.slide-excerpt { display: none !important; }
-			}			 
+			}
 		</style> ';
 		}
 }
@@ -292,10 +295,10 @@ class genesis_responsive_sliderWidget extends WP_Widget {
 
 			$query_args = apply_filters( 'genesis_responsive_slider_query_args', $query_args );
 			add_filter( 'excerpt_more', 'genesis_responsive_slider_excerpt_more' );
-		
+
 ?>
 
-		<div id="genesis-responsive-slider">			
+		<div id="genesis-responsive-slider">
 			<div class="flexslider">
 				<ul class="slides">
 					<?php
@@ -307,7 +310,7 @@ class genesis_responsive_sliderWidget extends WP_Widget {
 							$show_limit = genesis_get_responsive_slider_option( 'slideshow_excerpt_content_limit' );
 							$more_text = genesis_get_responsive_slider_option( 'slideshow_more_text' );
 							$no_image_link = genesis_get_responsive_slider_option( 'slideshow_no_link' );
-						} 
+						}
 						while ( $slider_posts->have_posts() ) : $slider_posts->the_post();
 					?>
 					<li>
@@ -317,10 +320,10 @@ class genesis_responsive_sliderWidget extends WP_Widget {
 							<div class="slide-background"></div><!-- end .slide-background -->
 							<div class="slide-excerpt-border ">
 								<?php
-									if ( $show_title == 1 ) { 
+									if ( $show_title == 1 ) {
 								?>
 								<h2><a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></h2>
-								<?php 
+								<?php
 									}
 									if ( $show_excerpt ) {
 										if ( $show_type != 'full' )
