@@ -6,7 +6,7 @@
 	Author: StudioPress
 	Author URI: http://www.studiopress.com
 
-	Version: 0.9.5
+	Version: 0.9.6
 
 	Text Domain: genesis-responsive-slider
 	Domain Path: /languages
