@@ -116,11 +116,11 @@ class Genesis_Responsive_Slider {
 
 			echo '
 			<style type="text/css">
-				.slide-excerpt { width: ' . $slide_info_width . '%; }
-				.slide-excerpt { ' . $vertical . ': 0; }
-				.slide-excerpt { ' . $horizontal . ': 0; }
-				.flexslider { max-width: ' . $width . 'px; max-height: ' . $height . 'px; }
-				.slide-image { max-height: ' . $height . 'px; }
+				.slide-excerpt { width: ' . esc_html( $slide_info_width ) . '%; }
+				.slide-excerpt { ' . esc_html( $vertical ) . ': 0; }
+				.slide-excerpt { ' . esc_html( $horizontal ) . ': 0; }
+				.flexslider { max-width: ' . esc_html( $width ) . 'px; max-height: ' . esc_html( $height ) . 'px; }
+				.slide-image { max-height: ' . esc_html( $height ) . 'px; }
 			</style>';
 
 		if ( 1 === $hide_mobile ) {
@@ -159,7 +159,7 @@ class Genesis_Responsive_Slider {
 
 		$output = str_replace( array( "\n", "\t", "\r" ), '', $output );
 
-		echo '<script type=\'text/javascript\'>' . $output . '</script>';
+		echo '<script type=\'text/javascript\'>' . wp_kses_post( $output ) . '</script>';
 	}
 
 	/**
