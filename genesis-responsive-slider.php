@@ -23,22 +23,24 @@
  * Thanks to Tyler Smith for creating the awesome jquery FlexSlider plugin - http://flex.madebymufffin.com/.
  */
 
-if ( ! defined( 'ABSPATH' ) || ! function_exists( 'genesis_get_option' ) ) {
-	//exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 define( 'GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD', 'genesis_responsive_slider_settings' );
 define( 'GENESIS_RESPONSIVE_SLIDER_VERSION', '0.9.5' );
 define( 'GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL', plugins_url('',  __FILE__ ) );
+define( 'GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 
 
 require_once GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR . '/includes/class-genesis-responsive-slider-widget.php';
 require_once GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR . '/includes/class-genesis-responsive-slider.php';
 
+add_action( 'after_setup_theme', array( 'Genesis_Responsive_Slider', 'init' ), 15 );
+
 /** Include Admin file */
 if ( is_admin() ) {
-	require_once GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR . '/admin.php';
-}
+	require_once GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR . '/includes/class-genesis-responsive-slider-admin.php';
 
-add_action( 'after_setup_theme', array( 'Genesis_Responsive_Slider', 'init' ), 15 );
+	add_action( 'init', array( 'Genesis_Responsive_Slider_Admin', 'init' ) );
+}

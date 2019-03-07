@@ -44,14 +44,17 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 	 * @param  array $instance Instance.
 	 */
 	public function widget( $args, $instance ) {
-		extract( $args );
+		$before_widget = $args['before_widget'];
+		$after_widget  = $args['after_widget'];
+		$before_title  = $args['before_title'];
+		$after_title   = $args['after_title'];
 
-		echo $before_widget;
+		echo wp_kses_post( $before_widget );
 
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
 		if ( $title ) {
-			echo $before_title . $title . $after_title;
+			echo wp_kses_post( $before_title . $title . $after_title );
 		}
 
 		$term_args = array();
@@ -198,8 +201,8 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 		</div><!-- end #genesis-responsive-slider -->
 
 		<?php
-		echo $after_widget;
-		wp_reset_query();
+		echo wp_kses_post( $after_widget );
+		wp_reset_postdata();
 		remove_filter( 'excerpt_more', 'genesis_responsive_slider_excerpt_more' );
 
 	}
