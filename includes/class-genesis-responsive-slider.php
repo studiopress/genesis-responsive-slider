@@ -123,7 +123,7 @@ class Genesis_Responsive_Slider {
 				.slide-image { max-height: ' . esc_html( $height ) . 'px; }
 			</style>';
 
-		if ( 1 === $hide_mobile ) {
+		if ( '1' === $hide_mobile ) {
 			echo '
 			<style type="text/css">
 				@media only screen
@@ -168,24 +168,24 @@ class Genesis_Responsive_Slider {
 	public static function genesis_responsive_slider_register() {
 		register_widget( 'Genesis_Responsive_Slider_Widget' );
 	}
+}
 
-	/**
-	 * Creates read more link after excerpt.
-	 *
-	 * @param string $more Content.
-	 */
-	public function genesis_responsive_slider_excerpt_more( $more ) {
-		global $post;
-		static $read_more = null;
+/**
+ * Creates read more link after excerpt.
+ *
+ * @param string $more Content.
+ */
+function genesis_responsive_slider_excerpt_more( $more ) {
+	global $post;
+	static $read_more = null;
 
-		if ( null === $read_more ) {
-			$read_more = genesis_get_responsive_slider_option( 'slideshow_more_text' );
-		}
-
-		if ( ! $read_more ) {
-			return '';
-		}
-
-		return '&hellip; <a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . $read_more . '</a>';
+	if ( null === $read_more ) {
+		$read_more = genesis_get_responsive_slider_option( 'slideshow_more_text' );
 	}
+
+	if ( ! $read_more ) {
+		return '';
+	}
+
+	return '&hellip; <a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . $read_more . '</a>';
 }
