@@ -21,7 +21,7 @@
 	"prefer-stable": true,
 	"scripts": {
 		"phpcs": "./vendor/bin/phpcs --standard=WordPress --ignore=vendor/ --extensions=php  -p ./",
-        "phpcs-5.6": "./vendor/bin/phpcs --standard=PHPCompatibility --ignore=vendor/ --runtime-set testVersion 5.6- -p ./"
+        "phpcs-compat": "./vendor/bin/phpcs --extensions=php --standard=PHPCompatibilityWP --ignore=vendor/ --runtime-set testVersion 5.6- -p ./"
 	},
 	"support": {
 		"issues": "https://github.com/studiopress/genesis-responsive-slider/issues",
