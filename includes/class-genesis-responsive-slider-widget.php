@@ -51,7 +51,9 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 
 		echo wp_kses_post( $before_widget );
 
-		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
+		$title = isset( $instance['title'] ) ? $instance['title'] : false;
+
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		if ( $title ) {
 			echo wp_kses_post( $before_title . $title . $after_title );
@@ -151,13 +153,13 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 					<li>
 
 						<?php
-						if ( 1 === $show_excerpt || 1 === $show_title ) {
+						if ( '1' === $show_excerpt || '1' === $show_title ) {
 							?>
 						<div class="slide-excerpt slide-<?php the_ID(); ?>">
 							<div class="slide-background"></div><!-- end .slide-background -->
 							<div class="slide-excerpt-border ">
 							<?php
-							if ( 1 === $show_title ) {
+							if ( '1' === $show_title ) {
 								?>
 								<h2><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 								<?php
@@ -219,8 +221,13 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 	<p><label for="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'genesis-responsive-slider' ); ?> <input class="widefat" id="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_html( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
 		<?php
 			echo '<p>';
+			$allowed_html = array(
+				'a' => array(
+					'href' => array(),
+				),
+			);
 			// Translators: %s Link to the Slider settings.
-			printf( esc_html( __( 'To configure slider options, please go to the <a href="%s">Slider Settings</a> page.', 'genesis-responsive-slider' ) ), esc_url( menu_page_url( 'genesis_responsive_slider', 0 ) ) );
+			printf( wp_kses( __( 'To configure slider options, please go to the <a href="%s">Slider Settings</a> page.', 'genesis-responsive-slider' ), $allowed_html ), esc_url( menu_page_url( 'genesis_responsive_slider', 0 ) ) );
 			echo '</p>';
 	}
 

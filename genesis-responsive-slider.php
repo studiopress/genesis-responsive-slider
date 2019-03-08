@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD', 'genesis_responsive_slider_settings' );
-define( 'GENESIS_RESPONSIVE_SLIDER_VERSION', '0.9.5' );
+define( 'GENESIS_RESPONSIVE_SLIDER_VERSION', '1.0.0' );
 define( 'GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 
