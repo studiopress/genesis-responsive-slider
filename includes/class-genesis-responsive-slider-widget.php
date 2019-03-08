@@ -120,7 +120,7 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 				'posts_per_page' => genesis_get_responsive_slider_option( 'posts_num' ),
 				'orderby'        => genesis_get_responsive_slider_option( 'orderby' ),
 				'order'          => genesis_get_responsive_slider_option( 'order' ),
-				'meta_key'       => genesis_get_responsive_slider_option( 'meta_key' ),
+				'meta_key'       => genesis_get_responsive_slider_option( 'meta_key' ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			)
 		);
 
@@ -216,10 +216,11 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
 		$title    = $instance['title'];
 		?>
-	<p><label for="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>"><?php __e( 'Title:', 'genesis-responsive-slider' ); ?> <input class="widefat" id="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_html( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
+	<p><label for="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'genesis-responsive-slider' ); ?> <input class="widefat" id="<?php echo esc_html( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_html( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
 		<?php
 			echo '<p>';
-			printf( esc_html( __e( 'To configure slider options, please go to the <a href="%s">Slider Settings</a> page.', 'genesis-responsive-slider' ) ), esc_url( menu_page_url( 'genesis_responsive_slider', 0 ) ) );
+			// Translators: %s Link to the Slider settings.
+			printf( esc_html( __( 'To configure slider options, please go to the <a href="%s">Slider Settings</a> page.', 'genesis-responsive-slider' ) ), esc_url( menu_page_url( 'genesis_responsive_slider', 0 ) ) );
 			echo '</p>';
 	}
 

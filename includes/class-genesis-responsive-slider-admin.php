@@ -67,14 +67,10 @@ class Genesis_Responsive_Slider_Admin {
 	public static function register_genesis_responsive_slider_settings() {
 
 		register_setting( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD );
-		add_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, array( 'Genesis_Responsive_Slider_Admin', 'genesis_responsive_slider_defaults' ), '', 'yes' );
-
-		if ( ! isset( $_REQUEST['page'] ) || 'genesis_responsive_slider' !== $_REQUEST['page'] ) {
-			return;
-		}
+		add_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, self::genesis_responsive_slider_defaults(), '', 'yes' );
 
 		if ( genesis_get_responsive_slider_option( 'reset' ) ) {
-			update_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, genesis_responsive_slider_defaults() );
+			update_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, self::genesis_responsive_slider_defaults() );
 
 			genesis_admin_redirect( 'genesis_responsive_slider', array( 'reset' => 'true' ) );
 			exit;
@@ -88,14 +84,10 @@ class Genesis_Responsive_Slider_Admin {
 	 */
 	public static function genesis_responsive_slider_notice() {
 
-		if ( ! isset( $_REQUEST['page'] ) || 'genesis_responsive_slider' !== $_REQUEST['page'] ) {
-			return;
-		}
-
-		if ( isset( $_REQUEST['reset'] ) && 'true' == $_REQUEST['reset'] ) {
-			echo '<div id="message" class="updated"><p><strong>' . esc_html( __( 'Settings reset.', 'genesis-responsive-slider' ) ) . '</strong></p></div>';
-		} elseif ( isset( $_REQUEST['settings-updated'] ) && 'true' === $_REQUEST['settings-updated'] ) {
-			echo '<div id="message" class="updated"><p><strong>' . esc_html( __( 'Settings saved.', 'genesis-responsive-slider' ) ) . '</strong></p></div>';
+		if ( ( isset( $_GET['reset'] ) && 'true' === $_GET['reset'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html( __( 'Settings reset.', 'genesis-responsive-slider' ) ) . '</strong></p></div>';
+		} elseif ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			echo '<div class="notice notice-success is-dismissible"><p><strong>' . esc_html( __( 'Settings saved.', 'genesis-responsive-slider' ) ) . '</strong></p></div>';
 		}
 
 	}
@@ -121,7 +113,7 @@ class Genesis_Responsive_Slider_Admin {
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
-		wp_enqueue_script( 'genesis_responsive_slider_admin_scripts', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), GENESIS_RESPONSIVE_SLIDER_VERSION, true );
+		wp_enqueue_script( 'genesis_responsive_slider_admin_scripts', GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL . 'js/admin.js', array( 'jquery' ), GENESIS_RESPONSIVE_SLIDER_VERSION, true );
 	}
 
 	/**
@@ -130,7 +122,7 @@ class Genesis_Responsive_Slider_Admin {
 	public static function genesis_responsive_slider_settings_boxes() {
 		global $_genesis_responsive_slider_settings_pagehook;
 
-		add_meta_box( 'genesis-responsive-slider-options', __( 'Genesis Responsive Slider Settings', 'genesis-responsive-slider' ), array( 'Genesis_Responsive_Slider_Admin', 'genesis_responsive_slider_options_box' ), $_genesis_responsive_slider_settings_pagehook, 'column1' );
+		add_meta_box( 'genesis-responsive-slider-options', __( 'Genesis Responsive Slider Settings_Admin', 'genesis-responsive-slider' ), array( 'Genesis_Responsive_Slider_Admin', 'genesis_responsive_slider_options_box' ), $_genesis_responsive_slider_settings_pagehook, 'column1' );
 	}
 
 	/**
@@ -163,7 +155,7 @@ class Genesis_Responsive_Slider_Admin {
 			$hide3 = 'display: none;';
 		?>
 			<div id="gs" class="wrap genesis-metaboxes">
-			<form method="post" action="options.php">
+			<form method="POST" action="options.php">
 
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
@@ -185,6 +177,8 @@ class Genesis_Responsive_Slider_Admin {
 					<input type="submit" class="button-primary" value="<?php esc_html_e( 'Save Settings', 'genesis-responsive-slider' ); ?>" />
 					<input type="submit" class="button-highlighted" name="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[reset]" value="<?php esc_html_e( 'Reset Settings', 'genesis-responsive-slider' ); ?>" />
 				</div>
+
+				<?php wp_nonce_field( 'genesis_responsive_slider', 'genesis_responsive_slider_nonce' ); ?>
 
 			</form>
 			</div>
