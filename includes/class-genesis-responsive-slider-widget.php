@@ -61,11 +61,11 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 
 		$term_args = array();
 
-		if ( genesis_get_responsive_slider_option( 'post_type' ) !== 'page' ) {
+		if ( Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'post_type' ) !== 'page' ) {
 
-			if ( genesis_get_responsive_slider_option( 'posts_term' ) ) {
+			if ( Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'posts_term' ) ) {
 
-				$posts_term = explode( ',', genesis_get_responsive_slider_option( 'posts_term' ) );
+				$posts_term = explode( ',', Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'posts_term' ) );
 
 				if ( 'category' === $posts_term['0'] ) {
 					$posts_term['0'] = 'category_name';
@@ -93,22 +93,22 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 				$taxonomy = 'category';
 			}
 
-			if ( genesis_get_responsive_slider_option( 'exclude_terms' ) ) {
+			if ( Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'exclude_terms' ) ) {
 
-				$exclude_terms                       = explode( ',', str_replace( ' ', '', genesis_get_responsive_slider_option( 'exclude_terms' ) ) );
+				$exclude_terms                       = explode( ',', str_replace( ' ', '', Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'exclude_terms' ) ) );
 				$term_args[ $taxonomy . '__not_in' ] = $exclude_terms;
 
 			}
 		}
 
-		if ( genesis_get_responsive_slider_option( 'posts_offset' ) ) {
-			$my_offset           = genesis_get_responsive_slider_option( 'posts_offset' );
+		if ( Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'posts_offset' ) ) {
+			$my_offset           = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'posts_offset' );
 			$term_args['offset'] = $my_offset;
 		}
 
-		if ( genesis_get_responsive_slider_option( 'post_id' ) ) {
-			$ids = explode( ',', str_replace( ' ', '', genesis_get_responsive_slider_option( 'post_id' ) ) );
-			if ( 'include' === genesis_get_responsive_slider_option( 'include_exclude' ) ) {
+		if ( Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'post_id' ) ) {
+			$ids = explode( ',', str_replace( ' ', '', Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'post_id' ) ) );
+			if ( 'include' === Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'include_exclude' ) ) {
 				$term_args['post__in'] = $ids;
 			} else {
 				$term_args['post__not_in'] = $ids;
@@ -118,11 +118,11 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 		$query_args = array_merge(
 			$term_args,
 			array(
-				'post_type'      => genesis_get_responsive_slider_option( 'post_type' ),
-				'posts_per_page' => genesis_get_responsive_slider_option( 'posts_num' ),
-				'orderby'        => genesis_get_responsive_slider_option( 'orderby' ),
-				'order'          => genesis_get_responsive_slider_option( 'order' ),
-				'meta_key'       => genesis_get_responsive_slider_option( 'meta_key' ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'post_type'      => Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'post_type' ),
+				'posts_per_page' => Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'posts_num' ),
+				'orderby'        => Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'orderby' ),
+				'order'          => Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'order' ),
+				'meta_key'       => Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'meta_key' ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			)
 		);
 
@@ -137,12 +137,12 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 					$slider_posts = new WP_Query( $query_args );
 
 					if ( $slider_posts->have_posts() ) {
-						$show_excerpt  = genesis_get_responsive_slider_option( 'slideshow_excerpt_show' );
-						$show_title    = genesis_get_responsive_slider_option( 'slideshow_title_show' );
-						$show_type     = genesis_get_responsive_slider_option( 'slideshow_excerpt_content' );
-						$show_limit    = genesis_get_responsive_slider_option( 'slideshow_excerpt_content_limit' );
-						$more_text     = genesis_get_responsive_slider_option( 'slideshow_more_text' );
-						$no_image_link = genesis_get_responsive_slider_option( 'slideshow_no_link' );
+						$show_excerpt  = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_excerpt_show' );
+						$show_title    = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_title_show' );
+						$show_type     = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_excerpt_content' );
+						$show_limit    = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_excerpt_content_limit' );
+						$more_text     = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_more_text' );
+						$no_image_link = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_no_link' );
 					}
 
 					while ( $slider_posts->have_posts() ) :
@@ -245,64 +245,4 @@ class Genesis_Responsive_Slider_Widget extends WP_Widget {
 		return $instance;
 	}
 
-}
-
-/**
- * Used to exclude taxonomies and related terms from list of available terms/taxonomies in widget form().
- *
- * @since 0.9
- * @author Nick Croft
- *
- * @param string $taxonomy 'taxonomy' being tested.
- * @return string
- */
-function genesis_responsive_slider_exclude_taxonomies( $taxonomy ) {
-
-	$filters = array( '', 'nav_menu' );
-	$filters = apply_filters( 'genesis_responsive_slider_exclude_taxonomies', $filters );
-
-	return ( ! in_array( $taxonomy->name, $filters, true ) );
-
-}
-
-/**
- * Used to exclude post types from list of available post_types in widget form().
- *
- * @since 0.9
- * @author Nick Croft
- *
- * @param string $type 'post_type' being tested.
- * @return string
- */
-function genesis_responsive_slider_exclude_post_types( $type ) {
-
-	$filters = array( '', 'attachment' );
-	$filters = apply_filters( 'genesis_responsive_slider_exclude_post_types', $filters );
-
-	return ( ! in_array( $type, $filters, true ) );
-
-}
-
-/**
- * Returns Slider Option
- *
- * @param string $key key value for option.
- * @return string
- */
-function genesis_get_responsive_slider_option( $key ) {
-	return genesis_get_option( $key, GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD );
-}
-
-/**
- * Echos Slider Option
- *
- * @param string $key key value for option.
- */
-function genesis_responsive_slider_option( $key ) {
-
-	if ( ! genesis_get_responsive_slider_option( $key ) ) {
-		return false;
-	}
-
-	echo esc_html( genesis_get_responsive_slider_option( $key ) );
 }

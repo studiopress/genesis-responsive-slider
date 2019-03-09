@@ -25,9 +25,16 @@ class Genesis_Responsive_Slider {
 		add_action( 'widgets_init', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_register' ) );
 
 		/** Add new image size */
-		add_image_size( 'slider', (int) genesis_get_responsive_slider_option( 'slideshow_width' ), (int) genesis_get_responsive_slider_option( 'slideshow_height' ), true );
+		add_image_size( 'slider', (int) self::genesis_get_responsive_slider_option( 'slideshow_width' ), (int) self::genesis_get_responsive_slider_option( 'slideshow_height' ), true );
 
 		add_action( 'genesis_settings_sanitizer_init', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_sanitization' ) );
+	}
+
+	/**
+	 * Uninstall hook.
+	 */
+	public static function genesis_responsive_slider_plugin_uninstall() {
+		delete_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD );
 	}
 
 	/**
@@ -81,7 +88,7 @@ class Genesis_Responsive_Slider {
 	public static function genesis_responsive_slider_scripts() {
 
 		/** EasySlider JavaScript code */
-		wp_enqueue_script( 'flexslider', GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL . 'assets/js/jquery.flexslider.js', array( 'jquery' ), GENESIS_RESPONSIVE_SLIDER_VERSION, true );
+		wp_enqueue_script( 'flexslider', GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL . '/assets/js/jquery.flexslider.js', array( 'jquery' ), GENESIS_RESPONSIVE_SLIDER_VERSION, true );
 
 	}
 
@@ -91,7 +98,7 @@ class Genesis_Responsive_Slider {
 	public static function genesis_responsive_slider_styles() {
 
 		/** Standard slideshow styles */
-		wp_register_style( 'slider_styles', GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL . 'assets/style.css', array(), GENESIS_RESPONSIVE_SLIDER_VERSION );
+		wp_register_style( 'slider_styles', GENESIS_RESPONSIVE_SLIDER_PLUGIN_URL . '/assets/style.css', array(), GENESIS_RESPONSIVE_SLIDER_VERSION );
 		wp_enqueue_style( 'slider_styles' );
 
 	}
@@ -101,18 +108,18 @@ class Genesis_Responsive_Slider {
 	 */
 	public static function genesis_responsive_slider_head() {
 
-			$height = (int) genesis_get_responsive_slider_option( 'slideshow_height' );
-			$width  = (int) genesis_get_responsive_slider_option( 'slideshow_width' );
+			$height = (int) self::genesis_get_responsive_slider_option( 'slideshow_height' );
+			$width  = (int) self::genesis_get_responsive_slider_option( 'slideshow_width' );
 
-			$slide_info_width = (int) genesis_get_responsive_slider_option( 'slideshow_excerpt_width' );
+			$slide_info_width = (int) self::genesis_get_responsive_slider_option( 'slideshow_excerpt_width' );
 			$slide_nav_top    = (int) ( ( $height - 60 ) * .5 );
 
-			$vertical   = genesis_get_responsive_slider_option( 'location_vertical' );
-			$horizontal = genesis_get_responsive_slider_option( 'location_horizontal' );
-			$display    = ( genesis_get_responsive_slider_option( 'posts_num' ) >= 2 && genesis_get_responsive_slider_option( 'slideshow_arrows' ) ) ? 'top: ' . $slide_nav_top . 'px' : 'display: none';
+			$vertical   = self::genesis_get_responsive_slider_option( 'location_vertical' );
+			$horizontal = self::genesis_get_responsive_slider_option( 'location_horizontal' );
+			$display    = ( self::genesis_get_responsive_slider_option( 'posts_num' ) >= 2 && self::genesis_get_responsive_slider_option( 'slideshow_arrows' ) ) ? 'top: ' . $slide_nav_top . 'px' : 'display: none';
 
-			$hide_mobile     = genesis_get_responsive_slider_option( 'slideshow_hide_mobile' );
-			$slideshow_pager = genesis_get_responsive_slider_option( 'slideshow_pager' );
+			$hide_mobile     = self::genesis_get_responsive_slider_option( 'slideshow_hide_mobile' );
+			$slideshow_pager = self::genesis_get_responsive_slider_option( 'slideshow_pager' );
 
 			echo '
 			<style type="text/css">
@@ -140,11 +147,11 @@ class Genesis_Responsive_Slider {
 	 */
 	public static function genesis_responsive_slider_flexslider_params() {
 
-		$timer        = (int) genesis_get_responsive_slider_option( 'slideshow_timer' );
-		$duration     = (int) genesis_get_responsive_slider_option( 'slideshow_delay' );
-		$effect       = genesis_get_responsive_slider_option( 'slideshow_effect' );
-		$controlnav   = genesis_get_responsive_slider_option( 'slideshow_pager' );
-		$directionnav = genesis_get_responsive_slider_option( 'slideshow_arrows' );
+		$timer        = (int) self::genesis_get_responsive_slider_option( 'slideshow_timer' );
+		$duration     = (int) self::genesis_get_responsive_slider_option( 'slideshow_delay' );
+		$effect       = self::genesis_get_responsive_slider_option( 'slideshow_effect' );
+		$controlnav   = self::genesis_get_responsive_slider_option( 'slideshow_pager' );
+		$directionnav = self::genesis_get_responsive_slider_option( 'slideshow_arrows' );
 
 		$output = 'jQuery(document).ready(function($) {
 					$(".flexslider").flexslider({
@@ -168,6 +175,69 @@ class Genesis_Responsive_Slider {
 	public static function genesis_responsive_slider_register() {
 		register_widget( 'Genesis_Responsive_Slider_Widget' );
 	}
+
+	/**
+	 * Returns Slider Option
+	 *
+	 * @param string $key key value for option.
+	 * @return string
+	 */
+	public static function genesis_get_responsive_slider_option( $key ) {
+		return genesis_get_option( $key, GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD );
+	}
+
+	/**
+	 * Echos Slider Option
+	 *
+	 * @param string $key key value for option.
+	 */
+	public static function genesis_responsive_slider_option( $key ) {
+
+		if ( ! self::genesis_get_responsive_slider_option( $key ) ) {
+			return false;
+		}
+
+		echo esc_html( self::genesis_get_responsive_slider_option( $key ) );
+	}
+
+	/**
+	 * Return the defaults array
+	 *
+	 * @since 0.9
+	 */
+	public static function genesis_responsive_slider_defaults() {
+
+		$defaults = array(
+			'post_type'                       => 'post',
+			'posts_term'                      => '',
+			'exclude_terms'                   => '',
+			'include_exclude'                 => '',
+			'post_id'                         => '',
+			'posts_num'                       => 5,
+			'posts_offset'                    => 0,
+			'orderby'                         => 'date',
+			'slideshow_timer'                 => 4000,
+			'slideshow_delay'                 => 800,
+			'slideshow_arrows'                => 1,
+			'slideshow_pager'                 => 1,
+			'slideshow_loop'                  => 1,
+			'slideshow_no_link'               => 0,
+			'slideshow_height'                => 400,
+			'slideshow_width'                 => 920,
+			'slideshow_effect'                => 'slide',
+			'slideshow_excerpt_content'       => 'excerpts',
+			'slideshow_excerpt_content_limit' => 150,
+			'slideshow_more_text'             => __( '[Continue Reading]', 'genesis-responsive-slider' ),
+			'slideshow_excerpt_show'          => 1,
+			'slideshow_excerpt_width'         => 50,
+			'location_vertical'               => 'bottom',
+			'location_horizontal'             => 'right',
+			'slideshow_hide_mobile'           => 1,
+		);
+
+		return apply_filters( 'genesis_responsive_slider_settings_defaults', $defaults );
+
+	}
 }
 
 /**
@@ -180,7 +250,7 @@ function genesis_responsive_slider_excerpt_more( $more ) {
 	static $read_more = null;
 
 	if ( null === $read_more ) {
-		$read_more = genesis_get_responsive_slider_option( 'slideshow_more_text' );
+		$read_more = Genesis_Responsive_Slider::genesis_get_responsive_slider_option( 'slideshow_more_text' );
 	}
 
 	if ( ! $read_more ) {
