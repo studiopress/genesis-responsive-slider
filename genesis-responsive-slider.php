@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Genesis Responsive Slider
- * Plugin URI: http://www.studiopress.com
+ * Plugin URI: https://www.studiopress.com
  * Description: A responsive featured slider for the Genesis Framework.
- * Version: 0.9.6
+ * Version: 1.0.0
  * Author: StudioPress
  * Author URI: https://www.studiopress.com
  * License: GNU General Public License v2.0 (or later)
- * License URI: http://www.opensource.org/licenses/gpl-license.php
+ * License URI: https://www.opensource.org/licenses/gpl-license.php
 
  * Text Domain: genesis-responsive-slider
  * Domain Path: /languages
