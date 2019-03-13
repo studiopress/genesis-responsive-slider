@@ -45,6 +45,10 @@ class Genesis_Responsive_Slider_Admin {
 	 */
 	public static function genesis_responsive_slider_notice() {
 
+		if ( ! isset( $_REQUEST['page'] ) || 'genesis_responsive_slider' !== $_REQUEST['page'] ) {  // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			return;
+		}
+
 		if ( ( isset( $_GET['reset'] ) && 'true' === $_GET['reset'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( __( 'Settings reset.', 'genesis-responsive-slider' ) ) . '</p></div>';
 		} elseif ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
