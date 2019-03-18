@@ -297,7 +297,7 @@ class Genesis_Responsive_Slider_Admin {
 					<p>
 						<label for="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_effect]"><?php esc_html_e( 'Slider Effect', 'genesis-responsive-slider' ); ?>:
 						<?php esc_html_e( 'Select one of the following:', 'genesis-responsive-slider' ); ?>
-						<select name="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_effect]" id="<?php echo esc_html( GENESIS_SETTINGS_FIELD ); ?>[slideshow_effect]">
+						<select name="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_effect]" id="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_effect]">
 							<option value="slide" <?php selected( 'slide', genesis_get_option( 'slideshow_effect', GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ) ); ?>><?php esc_html_e( 'Slide', 'genesis-responsive-slider' ); ?></option>
 							<option value="fade" <?php selected( 'fade', genesis_get_option( 'slideshow_effect', GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ) ); ?>><?php esc_html_e( 'Fade', 'genesis-responsive-slider' ); ?></option>
 						</select>
@@ -346,7 +346,7 @@ class Genesis_Responsive_Slider_Admin {
 
 					<p>
 						<?php esc_html_e( 'Select one of the following:', 'genesis-responsive-slider' ); ?>
-						<select name="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_excerpt_content]" id="<?php echo esc_html( GENESIS_SETTINGS_FIELD ); ?>[slideshow_excerpt_content]">
+						<select name="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_excerpt_content]" id="<?php echo esc_html( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ); ?>[slideshow_excerpt_content]">
 							<option value="full" <?php selected( 'full', genesis_get_option( 'slideshow_excerpt_content', GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ) ); ?>><?php esc_html_e( 'Display post content', 'genesis-responsive-slider' ); ?></option>
 							<option value="excerpts" <?php selected( 'excerpts', genesis_get_option( 'slideshow_excerpt_content', GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD ) ); ?>><?php esc_html_e( 'Display post excerpts', 'genesis-responsive-slider' ); ?></option>
 						</select>
