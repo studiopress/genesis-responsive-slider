@@ -14,6 +14,10 @@ class Genesis_Responsive_Slider {
 	 */
 	public static function init() {
 
+		if ( ! function_exists( 'genesis_get_option' ) ) {
+			return false;
+		}
+
 		// Translation support.
 		load_plugin_textdomain( 'genesis-responsive-slider', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
@@ -23,11 +27,14 @@ class Genesis_Responsive_Slider {
 		add_action( 'wp_head', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_head' ), 1 );
 		add_action( 'wp_footer', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_flexslider_params' ) );
 		add_action( 'widgets_init', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_register' ) );
+		add_action( 'after_switch_theme', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_reset_on_theme_switch' ) );
 
 		/** Add new image size */
 		add_image_size( 'slider', (int) self::genesis_get_responsive_slider_option( 'slideshow_width' ), (int) self::genesis_get_responsive_slider_option( 'slideshow_height' ), true );
 
 		add_action( 'genesis_settings_sanitizer_init', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_sanitization' ) );
+
+		add_filter( 'genesis_responsive_slider_defaults', array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_defaults' ) );
 	}
 
 	/**
@@ -236,7 +243,15 @@ class Genesis_Responsive_Slider {
 		);
 
 		return apply_filters( 'genesis_responsive_slider_settings_defaults', $defaults );
+	}
 
+	/**
+	 * Uses the filter default settings when changing themes.
+	 */
+	public static function genesis_responsive_slider_reset_on_theme_switch() {
+		if ( has_filter( 'genesis_responsive_slider_settings_defaults' ) ) {
+			update_option( GENESIS_RESPONSIVE_SLIDER_SETTINGS_FIELD, self::genesis_responsive_slider_defaults(), '', 'yes' );
+		}
 	}
 }
 

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 				files: {
 					src: [
 						'*.php',
-						'lib/**/*.php'
+						'includes/**/*.php'
 					]
 				}
 			}

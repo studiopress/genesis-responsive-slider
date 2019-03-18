@@ -38,7 +38,7 @@ require_once GENESIS_RESPONSIVE_SLIDER_PLUGIN_DIR . '/includes/class-genesis-res
 
 register_uninstall_hook( __FILE__, array( 'Genesis_Responsive_Slider', 'genesis_responsive_slider_plugin_uninstall' ) );
 
-add_action( 'after_setup_theme', array( 'Genesis_Responsive_Slider', 'init' ), 15 );
+add_action( 'init', array( 'Genesis_Responsive_Slider', 'init' ), 15 );
 
 /** Include Admin file */
 if ( is_admin() ) {
