@@ -16,6 +16,11 @@ class Genesis_Responsive_Slider_Admin {
 	 * Constructor.
 	 */
 	public static function init() {
+
+		if ( ! function_exists( 'genesis_get_option' ) ) {
+			return false;
+		}
+
 		add_action( 'admin_init', array( 'Genesis_Responsive_Slider_Admin', 'register_genesis_responsive_slider_maybe_reset_settings' ) );
 		add_action( 'admin_notices', array( 'Genesis_Responsive_Slider_Admin', 'genesis_responsive_slider_notice' ) );
 		add_action( 'admin_menu', array( 'Genesis_Responsive_Slider_Admin', 'genesis_responsive_slider_settings_init' ), 15 );
