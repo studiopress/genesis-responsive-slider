@@ -13,6 +13,7 @@ workflows:
   check-wp-cs:
     jobs:
       - test:
-        branches:
-          only:
-            - develop
+        filters:
+          branches:
+            only:
+              - develop
