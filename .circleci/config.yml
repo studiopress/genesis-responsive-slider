@@ -12,7 +12,4 @@ workflows:
   version: 2
   check-wp-cs:
     jobs:
-      - test:
-        filters:
-          branches:
-            only: develop
+      - test
