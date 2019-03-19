@@ -1,4 +1,5 @@
 === Genesis Responsive Slider ===
+
 Contributors: marksabbath, nathanrice, studiopress, wpmuguru
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5553118
 Tags: slider, slideshow, responsive, genesis, genesiswp, studiopress
