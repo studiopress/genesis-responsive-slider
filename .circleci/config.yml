@@ -1,9 +1,6 @@
 version: 2
 jobs:
   test:
-    branches:
-      only:
-        - develop
     docker:
       - image: circleci/php:7.3.3-stretch-node-browsers
     steps:
@@ -14,5 +11,8 @@ jobs:
 workflows:
   version: 2
   check-wp-cs:
+    branches:
+      only:
+        - develop
     jobs:
       - test
