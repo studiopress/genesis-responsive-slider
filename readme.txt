@@ -3,8 +3,8 @@ Contributors: marksabbath, nathanrice, studiopress, wpmuguru
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5553118
 Tags: slider, slideshow, responsive, genesis, genesiswp, studiopress
 Requires at least: 3.2
-Tested up to: 5.1
-Stable tag: 1.0.0
+Tested up to: 5.2.2
+Stable tag: 1.0.1
 
 This plugin allows you to create a simple responsive slider that displays the featured image, along with the title and excerpt from each post.
 
@@ -65,6 +65,9 @@ function my_child_theme_responsive_slider_defaults( $defaults ) {
 `
 
 == Changelog ==
+
+= 1.0.1 =
+* Tested on WordPress 5.2.2
 
 = 1.0.0 =
 * Major restructuring
