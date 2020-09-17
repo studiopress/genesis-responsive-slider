@@ -9,7 +9,6 @@
   "devDependencies": {
     "grunt": "*",
     "grunt-checktextdomain": "*",
-    "grunt-contrib-imagemin": "*",
     "grunt-wp-i18n": "*",
     "load-grunt-tasks": "*"
   },
