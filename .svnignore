@@ -1,6 +1,6 @@
-.git/*
+.git
 .gitignore
 .gitattributes
 .svnignore
-.circleci/*
-node_modules/*
+.circleci
+node_modules
