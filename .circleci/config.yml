@@ -54,3 +54,9 @@ workflows:
       - svn-deploy:
           requires:
             - test
+          filters:
+            # only on tags, not on branches
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+            branches:
+              ignore: /.*/
