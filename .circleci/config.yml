@@ -29,12 +29,12 @@ jobs:
             svn up trunk
             svn up tags --depth=empty
             find trunk -not -path trunk -delete
-            cp -r /tmp/src/. trunk
+            cp -r /tmp/src/ trunk
             svn propset svn:ignore -F /tmp/src/.svnignore .
             svn up tags/${VERSION}
-            svn rm tags/${VERSION} &>/dev/null
-            svn cp trunk tags/${VERSION}
-            SVN_DIRECTORIES="trunk tags"
+            svn rm tags/${VERSION}/* &>/dev/null
+            cp -r /tmp/src tags/${VERSION}
+            SVN_DIRECTORIES="trunk tags/${VERSION}"
             svn stat $SVN_DIRECTORIES | { grep -E '^\?' || true; } | awk '{print $2}' | xargs -r svn add
             svn stat $SVN_DIRECTORIES | { grep -E '^\!' || true; } | awk '{print $2}' | xargs -r svn rm
             echo "Here is the svn stat about to be checked in:"
