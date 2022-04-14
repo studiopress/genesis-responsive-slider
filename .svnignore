@@ -2,5 +2,5 @@
 .gitignore
 .gitattributes
 .svnignore
-.circleci
+.circleci/config.yml
 node_modules
