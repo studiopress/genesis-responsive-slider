@@ -1,6 +1,12 @@
 .git
 .gitignore
 .gitattributes
+.editorconfig
+Gruntfile.js
 .svnignore
 .circleci/config.yml
+package.json
+package-lock.json
+composer.json
+composer-lock.json
 node_modules
