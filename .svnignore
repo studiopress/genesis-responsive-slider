@@ -2,9 +2,9 @@
 .gitignore
 .gitattributes
 .editorconfig
-Gruntfile.js
+gruntfile.js
 .svnignore
-.circleci/config.yml
+.circleci
 package.json
 package-lock.json
 composer.json
