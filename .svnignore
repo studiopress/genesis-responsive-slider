@@ -2,7 +2,7 @@
 .gitignore
 .gitattributes
 .editorconfig
-gruntfile.js
+Gruntfile.js
 .svnignore
 .circleci
 package.json
