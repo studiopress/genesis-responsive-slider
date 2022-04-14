@@ -19,8 +19,8 @@ jobs:
           command: |
             sudo apt-get update && sudo apt-get install subversion
             SLUG=genesis-responsive-slider
-            PLUGIN_VERSION=$(grep 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
-            if [ ! $PLUGIN_VERSION ]
+            VERSION=$(grep 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
+            if [ ! $VERSION ]
               then
               echo "Didn't find a version of the plugin"
               exit 1
