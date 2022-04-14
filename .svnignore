@@ -2,4 +2,5 @@
 .gitignore
 .gitattributes
 .svnignore
+.circleci
 node_modules
