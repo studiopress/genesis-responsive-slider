@@ -3,7 +3,7 @@
  * Plugin Name: Genesis Responsive Slider
  * Plugin URI: https://www.studiopress.com
  * Description: A responsive featured slider for the Genesis Framework.
- * Version: 1.0.2
+ * Version: 1.0.1
  * Author: StudioPress
  * Author URI: https://www.studiopress.com
  * License: GNU General Public License v2.0 (or later)

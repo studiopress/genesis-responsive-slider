@@ -57,7 +57,7 @@ jobs:
               echo "Didn't find a version of the plugin"
               exit 1
             fi
-            TESTED_UP_TO_VERSION=$(grep -i 'tested up to:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
+            TESTED_UP_TO_VERSION=$(grep -i 'tested up to:' /tmp/src/readme.txt | awk -F: '{print $2}' | sed 's/^\s//')
             if [ ! $TESTED_UP_TO_VERSION ]
               then
               echo "Didn't find a 'Tested up to' version, so can't bump it"
@@ -67,7 +67,7 @@ jobs:
             svn up trunk
             svn up tags --depth=empty
             svn up tags/${VERSION}
-            sed 's/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/ig' trunk/readme.txt trunk/README.md tags/${VERSION}/readme.txt tags/${VERSION}/README.md
+            sed -i 's/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/ig' trunk/readme.txt trunk/README.md tags/${VERSION}/readme.txt tags/${VERSION}/README.md
             echo "Here is the svn stat about to be checked in:"
             svn stat
 
