@@ -39,6 +39,8 @@ jobs:
             svn stat $SVN_DIRECTORIES | { grep -E '^\!' || true; } | awk '{print $2}' | xargs -r svn rm
             echo "Here is the svn stat about to be checked in:"
             svn stat
+            echo "And here is the diff:"
+            svn diff
   svn-bump-tested-up-to:
     docker:
       - image: cimg/base:2022.04
@@ -91,13 +93,13 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
-      - approval-for-version-bump:
+      - approval-for-svn-bump-tested-up-to:
           type: approval
           requires:
             - test
       - svn-bump-tested-up-to:
           requires:
-            - approval-for-version-bump
+            - approval-for-svn-bump-tested-up-to
           filters:
             tags:
               ignore: /.*/
