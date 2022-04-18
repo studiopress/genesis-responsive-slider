@@ -8,39 +8,6 @@ jobs:
       - checkout
       - prepare-environment
       - run: composer phpcs
-  svn-deploy:
-    docker:
-      - image: cimg/php:7.4-node
-    steps:
-      - checkout:
-          path: /tmp/src
-      - run:
-          name: Deploying to SVN
-          command: |
-            sudo apt-get update && sudo apt-get install subversion
-            SLUG=genesis-responsive-slider
-            VERSION=$(grep 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
-            if [ ! $VERSION ]
-              then
-              echo "Didn't find a version of the plugin"
-              exit 1
-            fi
-            svn co https://plugins.svn.wordpress.org/${SLUG} --depth=empty .
-            svn up trunk
-            svn up tags --depth=empty
-            find trunk -not -path trunk -delete
-            cp -r /tmp/src/* trunk
-            svn propset svn:ignore -F /tmp/src/.svnignore .
-            svn up tags/${VERSION}
-            svn rm tags/${VERSION} &> /dev/null
-            cp -r /tmp/src/* tags/${VERSION}
-            SVN_DIRECTORIES="trunk tags/${VERSION}"
-            svn stat $SVN_DIRECTORIES | { grep -E '^\?' || true; } | awk '{print $2}' | xargs -r svn add
-            svn stat $SVN_DIRECTORIES | { grep -E '^\!' || true; } | awk '{print $2}' | xargs -r svn rm
-            echo "Here is the svn stat about to be checked in:"
-            svn stat
-            echo "And here is the diff:"
-            svn diff
   svn-bump-tested-up-to:
     docker:
       - image: cimg/base:2022.04
@@ -72,6 +39,8 @@ jobs:
             sed -i 's/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/ig' trunk/readme.txt tags/${VERSION}/readme.txt
             echo "Here is the svn stat about to be checked in:"
             svn stat
+            echo "And here is the diff:"
+            svn diff
 
 commands:
  prepare-environment:
@@ -84,15 +53,6 @@ workflows:
   check-wp-cs:
     jobs:
       - test
-      - svn-deploy:
-          requires:
-            - test
-          filters:
-            # only on tags, not on branches
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
       - approval-for-svn-bump-tested-up-to:
           type: approval
           requires:
