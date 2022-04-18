@@ -36,7 +36,7 @@ jobs:
             svn up trunk
             svn up tags --depth=empty
             svn up tags/${VERSION}
-            sed -i "s/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/ig" trunk/readme.txt tags/${VERSION}/readme.txt
+            sed -i "s/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/i" trunk/readme.txt tags/${VERSION}/readme.txt
             echo "Here is the svn stat about to be checked in:"
             svn stat
             echo "And here is the diff:"
