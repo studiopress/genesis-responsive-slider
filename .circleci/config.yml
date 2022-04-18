@@ -61,7 +61,7 @@ workflows:
             tags:
               ignore: /.*/
             branches:
-              only: ^bump-tested-up-to.*
+              only: /^bump-tested-up-to.*/
       - svn-deploy-bump-tested-up-to:
           requires:
             - approval-for-svn-deploy-bump-tested-up-to
