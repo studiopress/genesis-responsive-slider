@@ -41,15 +41,13 @@ jobs:
             svn stat
   svn-bump-tested-up-to:
     docker:
-      - image: cimg/php:7.4-node
+      - image: cimg/base
     steps:
       - checkout:
           path: /tmp/src
       - run:
           name: Deploying to SVN
           command: |
-            sudo apt-get update
-            sudo apt-get install subversion
             SLUG=genesis-responsive-slider
             VERSION=$(grep -i 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
             if [ ! $VERSION ]
