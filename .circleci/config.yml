@@ -90,10 +90,13 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
-      - svn-bump-tested-up-to:
+      - hold:
           type: approval
           requires:
             - test
+      - svn-bump-tested-up-to:
+          requires:
+            - hold
           filters:
             tags:
               ignore: /.*/
