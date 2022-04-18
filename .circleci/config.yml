@@ -32,11 +32,41 @@ jobs:
             cp -r /tmp/src/* trunk
             svn propset svn:ignore -F /tmp/src/.svnignore .
             svn up tags/${VERSION}
-            svn rm tags/${VERSION} &>/dev/null
-            svn cp trunk tags/${VERSION}
+            svn rm tags/${VERSION} &> /dev/null
+            cp -r /tmp/src/* tags/${VERSION}
             SVN_DIRECTORIES="trunk tags/${VERSION}"
             svn stat $SVN_DIRECTORIES | { grep -E '^\?' || true; } | awk '{print $2}' | xargs -r svn add
             svn stat $SVN_DIRECTORIES | { grep -E '^\!' || true; } | awk '{print $2}' | xargs -r svn rm
+            echo "Here is the svn stat about to be checked in:"
+            svn stat
+  svn-bump-tested-up-to:
+    docker:
+      - image: cimg/php:7.4-node
+    steps:
+      - checkout:
+          path: /tmp/src
+      - run:
+          name: Deploying to SVN
+          command: |
+            sudo apt-get update && sudo apt-get install subversion
+            SLUG=genesis-responsive-slider
+            VERSION=$(grep -i 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
+            if [ ! $VERSION ]
+              then
+              echo "Didn't find a version of the plugin"
+              exit 1
+            fi
+            TESTED_UP_TO_VERSION=$(grep -i 'tested up to:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
+            if [ ! $TESTED_UP_TO_VERSION ]
+              then
+              echo "Didn't find a 'Tested up to' version, so can't bump it"
+              exit 1
+            fi
+            svn co https://plugins.svn.wordpress.org/${SLUG} --depth=empty .
+            svn up trunk
+            svn up tags --depth=empty
+            svn up tags/${VERSION}
+            sed 's/tested up to: .*/Tested up to: ${TESTED_UP_TO_VERSION}/ig' trunk/readme.txt trunk/README.md tags/${VERSION}/readme.txt tags/${VERSION}/README.md
             echo "Here is the svn stat about to be checked in:"
             svn stat
 
@@ -60,3 +90,12 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
+      - svn-bump-tested-up-to:
+          type: approval
+          requires:
+            - test
+          filters:
+            tags:
+              ignore: /.*/
+            branches:
+              only: /^bump-tested-up-to/
