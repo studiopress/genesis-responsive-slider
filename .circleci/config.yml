@@ -8,7 +8,7 @@ jobs:
       - checkout
       - prepare-environment
       - run: composer phpcs
-  svn-bump-tested-up-to:
+  svn-deploy-bump-tested-up-to:
     docker:
       - image: cimg/base:2022.04
     steps:
@@ -59,7 +59,7 @@ workflows:
             - test
       - svn-deploy-bump-tested-up-to:
           requires:
-            - approval-for-svn-bump-tested-up-to
+            - approval-for-svn-deploy-bump-tested-up-to
           filters:
             tags:
               ignore: /.*/
