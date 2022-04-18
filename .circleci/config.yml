@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Deploying to SVN
           command: |
-            sudo apt-get update && sudo apt-get install subversion
+            sudo apt-get install subversion
             SLUG=genesis-responsive-slider
             VERSION=$(grep -i 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
             if [ ! $VERSION ]
@@ -90,13 +90,13 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
-      - hold:
+      - await-approval-for-bump:
           type: approval
           requires:
             - test
       - svn-bump-tested-up-to:
           requires:
-            - hold
+            - await-approval-for-bump
           filters:
             tags:
               ignore: /.*/
