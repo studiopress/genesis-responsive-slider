@@ -15,7 +15,7 @@ jobs:
       - checkout:
           path: /tmp/src
       - run:
-          name: Deploying only the 'Tested up to' bump to SVN
+          name: Deploying only the bump of 'Tested up to' to SVN
           command: |
             sudo apt-get update
             sudo apt-get install subversion
