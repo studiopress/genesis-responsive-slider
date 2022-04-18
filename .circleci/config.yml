@@ -63,3 +63,5 @@ workflows:
           filters:
             tags:
               ignore: /.*/
+            branches:
+              only: ^bump-tested-up-to.*
