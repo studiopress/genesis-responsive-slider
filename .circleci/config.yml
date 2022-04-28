@@ -15,30 +15,18 @@ jobs:
       - checkout:
           path: /tmp/src
       - run:
-          name: Deploying only the 'Tested up to' bump to SVN
+          name: Deploying only the bump of 'Tested up to' to SVN
           command: |
-            CHECKOUT_PATH=/tmp/src
             sudo apt-get update
             sudo apt-get install subversion
-            for php_file in $(find $CHECKOUT_PATH -maxdepth 1 -name "*php" -type f)
-              do
-              if [[ $(grep -i 'plugin name:' $php_file) ]]
-              then
-                SLUG=$(basename $php_file .php)
-              fi
-            done
-            if [ ! $SLUG ]
-              then
-              echo "Didn't find the plugin slug"
-              exit 1
-            fi
-            VERSION=$(grep -i 'Version:' "$CHECKOUT_PATH/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
+            SLUG=genesis-responsive-slider
+            VERSION=$(grep -i 'Version:' "/tmp/src/$SLUG.php" | awk -F: '{print $2}' | sed 's/^\s//')
             if [ ! $VERSION ]
               then
               echo "Didn't find a version of the plugin"
               exit 1
             fi
-            TESTED_UP_TO_VERSION=$(grep -i 'tested up to:' $CHECKOUT_PATH/readme.txt | awk -F: '{print $2}' | sed 's/^\s//')
+            TESTED_UP_TO_VERSION=$(grep -i 'tested up to:' /tmp/src/readme.txt | awk -F: '{print $2}' | sed 's/^\s//')
             if [ ! $TESTED_UP_TO_VERSION ]
               then
               echo "Didn't find a 'Tested up to' version, so can't bump it"
